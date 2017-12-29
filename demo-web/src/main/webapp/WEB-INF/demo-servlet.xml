@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		                       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		                       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		                       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+  <!--本文件名称由web.xml文件中的servlet标签中的servlet-name值和"-servlet"组合而成-->
+
+  <!--扫描com.enroy.demo.web.controller包下的所有内容-->
+  <context:component-scan base-package="com.enroy.demo.web.controller"/>
+  <!--读取配置文件-->
+  <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    <property name="location" value="classpath:demo-web.properties"/>
+    <property name="fileEncoding" value="utf-8"/>
+    <property name="ignoreResourceNotFound" value="true"/>
+  </bean>
+
+
+  <mvc:annotation-driven>
+    <!--对特定的返回值做处理，会先调用supportsReturnType方法判断是否符合条件，如果符合条件，则调用handleReturnValue进行处理。
+        原理是遍历所有的已注册的HandlerMethodReturnValueHandler，然后调用他们的supportsReturnType方法来判断他们各自是否支持这个返回值类型
+    -->
+    <mvc:return-value-handlers>
+      <bean class="com.enroy.demo.web.support.ActionResultReturnValueHandler">
+      </bean>
+    </mvc:return-value-handlers>
+    <!--对@ResponseBody注解的处理
+      遍历所有已注册的HttpMessageConverter，选出一个支持返回值类型returnValueClass和selectedMediaType的HttpMessageConverter来进行写入数据到response的body中
+    -->
+    <mvc:message-converters register-defaults="true">
+      <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+          <list>
+            <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+            <value>text/html;charset=UTF-8</value>
+            <value>application/json;charset=UTF-8</value>
+          </list>
+        </property>
+      </bean>
+
+      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper">
+          <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+            <property name="objectMapper">
+              <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                <property name="serializationInclusion">
+                  <value type="com.fasterxml.jackson.annotation.JsonInclude$Include">NON_NULL</value>
+                </property>
+                <property name="dateFormat">
+                  <bean class="java.text.SimpleDateFormat">
+                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                  </bean>
+                </property>
+              </bean>
+            </property>
+            <property name="featuresToDisable">
+              <array>
+                <util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES"/>
+              </array>
+            </property>
+          </bean>
+        </property>
+        <property name="prettyPrint" value="true"/>
+      </bean>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
+
+  <!-- 跨域调用白名单配置 -->
+  <mvc:cors>
+    <mvc:mapping path="/**"
+                 allowed-origins="http://localhost:63342,http://localhost:9000,https://localhost:8443,https://172.17.5.218:8443"
+                 allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, trace_id"
+                 allowed-methods="GET,PUT,POST,DELETE,OPTIONS" allow-credentials="true"
+                 max-age="3600"/>
+  </mvc:cors>
+
+  <!-- 启动初始化 -->
+  <bean class="com.enroy.demo.web.InitializationListener"/>
+</beans>
