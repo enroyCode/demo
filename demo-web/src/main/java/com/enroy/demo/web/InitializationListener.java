@@ -9,8 +9,14 @@
  */
 package com.enroy.demo.web;
 
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+
 /**
  * @author zhuchao
  */
-public class InitializationListener {
+public class InitializationListener implements ApplicationListener<ContextRefreshedEvent> {
+  public void onApplicationEvent(ContextRefreshedEvent event) {
+
+  }
 }
