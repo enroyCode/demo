@@ -54,7 +54,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>demo</servlet-name>
-    <url-pattern>*.hd</url-pattern>
+    <url-pattern>*.zc</url-pattern>
   </servlet-mapping>
 
   <!-- 超时配置 -->
