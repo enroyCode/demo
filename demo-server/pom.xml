@@ -15,9 +15,13 @@
     <dependency>
       <groupId>com.enroy</groupId>
       <artifactId>demo-api</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.enroy</groupId>
+      <artifactId>demo-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <!-- ddps -->
 
     <dependency>

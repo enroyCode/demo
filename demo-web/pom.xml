@@ -18,6 +18,11 @@
       <artifactId>demo-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.enroy</groupId>
+      <artifactId>demo-commons</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- service -->
 
@@ -140,6 +145,11 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
       <version>4.2.5.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>com.enroy</groupId>
+      <artifactId>demo-commons</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>

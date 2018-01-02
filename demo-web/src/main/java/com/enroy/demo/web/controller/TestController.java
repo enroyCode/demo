@@ -9,7 +9,7 @@
  */
 package com.enroy.demo.web.controller;
 
-import com.enroy.demo.biz.ActionResult;
+import com.enroy.demo.commons.biz.ActionResult;
 import com.enroy.demo.service.TestService;
 import com.enroy.demo.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

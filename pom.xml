@@ -13,6 +13,8 @@
     <module>demo-core</module>
     <module>demo-web</module>
     <module>demo-server</module>
+    <module>demo-jpa</module>
+    <module>demo-commons</module>
   </modules>
 
   <properties>
