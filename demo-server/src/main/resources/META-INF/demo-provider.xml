@@ -24,5 +24,4 @@
   <!-- 提供者公共配置 -->
   <dubbo:service interface="com.enroy.demo.service.TestService"
                  ref="demo-core.testService" register="${dubbo.registry.register:true}"/>
-
 </beans>
