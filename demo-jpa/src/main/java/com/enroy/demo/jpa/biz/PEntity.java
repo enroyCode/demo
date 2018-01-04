@@ -15,11 +15,13 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
  * @author zhuchao
  */
+@MappedSuperclass
 public class PEntity implements Serializable, IsEntity {
 
   private static final long serialVersionUID = -6822580840000923555L;
