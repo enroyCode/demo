@@ -8,7 +8,7 @@
 
   <!-- 应用标识 -->
   <bean id="app" class="com.enroy.demo.service.App"/>
-  <dubbo:application name="demo-web" organization="com.hd123" version="#{app.version}"/>
+  <dubbo:application name="demo-web" organization="com.enroy" version="#{app.version}"/>
   <!-- 注册中心 -->
   <dubbo:registry address="${dubbo.registry.address:}" file="${dubbo.registry.file:}"/>
   <!-- 消费者公共配置 -->
