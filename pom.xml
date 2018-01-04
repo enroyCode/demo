@@ -67,7 +67,7 @@
     <webx.version>0.2</webx.version>
 
     <zkclient.version>0.1</zkclient.version>
-    <zookeeper.version>3.4.6</zookeeper.version>
+    <zookeeper.version>3.4.5</zookeeper.version>
 
   </properties>
 
