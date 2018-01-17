@@ -79,6 +79,18 @@
         <artifactId>javassist</artifactId>
         <version>${javassist.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-httpclient</groupId>
+        <artifactId>commons-httpclient</artifactId>
+        <version>${commons-httpclient.version}</version>
+      </dependency>
       <!--jackson-->
       <dependency>
         <groupId>org.codehaus.jackson</groupId>
