@@ -57,7 +57,7 @@
     <url-pattern>*.zc</url-pattern>
   </servlet-mapping>
 
-  <!-- 超时配置 -->
+  <!-- session超时配置 -->
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>

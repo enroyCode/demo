@@ -10,7 +10,7 @@
   <bean id="app" class="com.enroy.demo.service.App"/>
   <dubbo:application name="demo-web" organization="com.enroy" version="#{app.version}"/>
   <!-- 注册中心 -->
-  <dubbo:registry address="${dubbo.registry.address:}" file="${dubbo.registry.file:}"/>
+  <dubbo:registry address="${dubbo.registry.address:zookeeper://127.0.0.1:2181}" file="${dubbo.registry.file:}"/>
   <!-- 消费者公共配置 -->
   <dubbo:consumer check="${dubbo.consumer.check:false}"/>
 

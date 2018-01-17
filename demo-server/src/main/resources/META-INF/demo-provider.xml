@@ -14,14 +14,20 @@
   <dubbo:application name="demo-server" organization="com.enroy" version="#{app.version}"/>
 
   <!-- 注册中心 -->
-  <dubbo:registry address="${dubbo.registry.address:zookeeper://172.17.5.218:2181}" file="${dubbo.registry.file:}"/>
+  <dubbo:registry address="${dubbo.registry.address:zookeeper://172.0.0.1:2181}" file="${dubbo.registry.file:}"/>
   <!-- 监控中心 -->
-  <dubbo:monitor address="injvm://localhost"/>
+  <!--<dubbo:monitor address="injvm://localhost"/>-->
 
   <!-- 服务协议 -->
   <!--contextpath的路径值，-->
   <dubbo:protocol name="rest" server="servlet" contextpath="${dubbo.rest.app:demo-server}/rest" pubhost="${dubbo.rest.pubhost:}"
                   pubport="${dubbo.rest.pubport:}" port="${dubbo.rest.port:8780}"/>
+
+  <!-- 提供者公共配置 -->
+  <dubbo:provider retries="0" protocol="rest"
+                  delay="${dubbo.provider.delay:-1}"
+                  threads="${dubbo.provider.threads:100}"
+                  timeout="${dubbo.provider.timeout:10000}"/>
 
   <!-- 提供者公共配置 -->
   <dubbo:service interface="com.enroy.demo.service.TestService"

@@ -16,6 +16,6 @@ import com.enroy.demo.service.TestService;
  */
 public class TestServiceImpl implements TestService {
   public String sayHey() {
-    return TestServiceImpl.class.getName();
+    return "hey";
   }
 }
