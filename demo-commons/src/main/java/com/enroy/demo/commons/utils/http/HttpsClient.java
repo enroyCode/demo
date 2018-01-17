@@ -226,7 +226,7 @@ public class HttpsClient {
   public static String post(String url, Map<String, String> params, Map<String, String> headers, String username, String password, String body) throws
           RuntimeException {
     if (headers == null) {
-      headers = new HashMap<>();
+      headers = new HashMap<String, String>();
     }
     if (username != null && params != null) {
       String auth = username + ":" + password;
