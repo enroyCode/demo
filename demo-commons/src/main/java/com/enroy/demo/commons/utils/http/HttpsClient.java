@@ -96,7 +96,7 @@ public class HttpsClient {
   public static String get(String url, Map<String, String> params, Map<String, String> headers, String username, String password) throws
           RuntimeException {
     if (headers == null) {
-      headers = new HashMap<>();
+      headers = new HashMap<String, String>();
     }
     if (username != null && params != null) {
       String auth = username + ":" + password;
