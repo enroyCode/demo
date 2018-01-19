@@ -7,7 +7,7 @@
  * 修改历史：
  * 2018/1/2 - zhuchao - 创建。
  */
-package com.enroy.demo.dao;
+package com.enroy.demo.dao.test;
 
 import com.enroy.demo.test.service.Test;
 
@@ -15,5 +15,7 @@ import com.enroy.demo.test.service.Test;
  * @author zhuchao
  */
 public interface TestDao {
-  public Test save(Test entity);
+  Test save(Test entity);
+
+  Test get(String id);
 }

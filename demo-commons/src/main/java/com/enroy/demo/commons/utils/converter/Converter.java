@@ -12,6 +12,6 @@ package com.enroy.demo.commons.utils.converter;
 /**
  * @author zhuchao
  */
-public interface Converter<T, S> {
-  T convert(S source) throws Exception;
+public interface Converter<S, T> {
+  T convert(S source) throws RuntimeException;
 }

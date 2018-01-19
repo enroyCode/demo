@@ -1,11 +1,13 @@
 package com.enroy.demo.service;
 
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
+import com.enroy.demo.test.service.Test;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("/testservice")
@@ -18,4 +20,8 @@ public interface TestService {
   @GET
   @Path("/sayHey")
   String sayHey();
+
+  @GET
+  @Path("/get")
+  Test get(@QueryParam("id") String id);
 }

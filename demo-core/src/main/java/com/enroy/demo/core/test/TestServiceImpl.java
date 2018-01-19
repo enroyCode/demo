@@ -7,15 +7,28 @@
  * 修改历史：
  * 2018/1/2 - zhuchao - 创建。
  */
-package com.enroy.demo.core;
+package com.enroy.demo.core.test;
 
+import com.enroy.demo.dao.test.TestDao;
 import com.enroy.demo.service.TestService;
+import com.enroy.demo.test.service.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author zhuchao
  */
 public class TestServiceImpl implements TestService {
+
+  @Autowired
+  private TestDao testDao;
+
   public String sayHey() {
     return "hey";
   }
+
+  public Test get(String id) {
+    Test test = testDao.get(id);
+    return test;
+  }
+
 }

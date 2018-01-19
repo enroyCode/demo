@@ -7,7 +7,7 @@
  * 修改历史：
  * 2018/1/2 - zhuchao - 创建。
  */
-package com.enroy.demo.core;
+package com.enroy.demo.core.test;
 
 import com.enroy.demo.jpa.biz.PEntity;
 

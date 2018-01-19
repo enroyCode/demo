@@ -16,7 +16,7 @@
   <aop:aspectj-autoproxy proxy-target-class="true"/>
 
   <!-- dao -->
-
+  <bean class="com.enroy.demo.dao.test.TestDaoImpl"/>
   <!--数据库相关配置-->
   <!--数据源配置-->
   <!-- 使用应用内的DBCP数据库连接池 -->
@@ -56,12 +56,14 @@
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
     <!-- 指定数据源 -->
     <property name="dataSource" ref="demo.dataSource"/>
+    <property name="persistenceXmlLocation" value="classpath:META-INF/demo.persistence.xml"/>
+    <property name="persistenceUnitName" value="demo"/>
     <!-- 指定Entity实体类包路径 -->
-    <property name="packagesToScan">
-      <array>
-        <value>com.enroy.demo.core</value>
-      </array>
-    </property>
+    <!--  <property name="packagesToScan">
+        <array>
+          <value>com.enroy.demo.core</value>
+        </array>
+      </property>-->
     <property name="persistenceProvider">
       <bean class="org.hibernate.ejb.HibernatePersistence"/>
     </property>
@@ -82,9 +84,8 @@
         <prop key="hibernate.show_sql">${demo-core.hibernate.show_sql:true}</prop>
         <prop key="hibernate.hbm2ddl.auto">${demo-core.hibernate.hbm2ddl.auto:update}</prop>
         <prop key="hibernate.default_schema">${demo-core.hibernate.default_schema:demo}</prop>
-        <prop key="hibernate.default_schema">$$$</prop>
-      <!--  <prop key="hibernate.ejb.interceptor">com.hd123.cloud.multitenant.ds.sharding.hibernate.ShardingInterceptor
-        </prop>-->
+        <!--  <prop key="hibernate.ejb.interceptor">com.hd123.cloud.multitenant.ds.sharding.hibernate.ShardingInterceptor
+          </prop>-->
       </props>
     </property>
     <!--<property name="jpaPropertyMap">
