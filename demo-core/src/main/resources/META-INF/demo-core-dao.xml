@@ -10,56 +10,12 @@
 
   <context:component-scan base-package="com.enroy.demo.dao"/>
   <!-- 启动对@AspectJ（面向切面）注解的支持 -->
+  <!--proxy-target-class属性，默认为false，表示使用jdk动态代理织入增强，
+      当配为true时，表示使用CGLib动态代理技术织入增强。
+      不过即使设置为false，如果目标类没有声明接口，则spring将自动使用CGLib动态代理。 -->
   <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 
-  <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
-  <!-- dao -->
-
-  <!-- 定义实体管理器工厂
-         Jpa配置   LocalContainerEntityManagerFactoryBean这个选项Spring扮演了容器的角色。完全掌管JPA -->
-  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    <!-- 指定数据源 -->
-    <property name="dataSource" ref="demo.dataSource"/>
-    <!-- 指定Entity实体类包路径 -->
-    <property name="packagesToScan">
-      <array>
-        <value>com.enroy.demo.core</value>
-      </array>
-    </property>
-    <property name="persistenceProvider">
-      <bean class="org.hibernate.ejb.HibernatePersistence"/>
-    </property>
-    <!-- 指定Jpa持久化实现厂商类,这里以Hibernate为例 -->
-    <property name="jpaVendorAdapter">
-      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="generateDdl" value="false"/>
-        <property name="database" value="MYSQL"/>
-        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-        <property name="showSql" value="true"/>
-      </bean>
-    </property>
-    <property name="jpaDialect">
-      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
-    </property>
-    <property name="jpaPropertyMap">
-      <map>
-        <entry key="hibernate.query.substitutions" value="true 1, false 0"/>
-        <entry key="hibernate.default_batch_fetch_size" value="16"/>
-        <entry key="hibernate.max_fetch_depth" value="2"/>
-        <entry key="hibernate.generate_statistics" value="true"/>
-        <entry key="hibernate.bytecode.use_reflection_optimizer" value="true"/>
-        <entry key="hibernate.cache.use_second_level_cache" value="false"/>
-        <entry key="hibernate.cache.use_query_cache" value="false"/>
-      </map>
-    </property>
-  </bean>
-
-
-  <!-- 事务管理器 -->
-  <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
-  <!--<property name="entityManagerFactory" ref="entityManagerFactory"/>-->
-  <!--</bean>-->
   <!--数据源配置-->
   <!-- 使用应用内的DBCP数据库连接池 -->
   <bean id="demo.dataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -87,42 +43,65 @@
     <property name="testOnBorrow" value="${demo.dataSource.testOnBorrow:false}"/>
     <!--归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。-->
     <property name="testOnReturn" value="${demo.dataSource.testOnReturn:false}"/>
-
     <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
     <property name="poolPreparedStatements" value="${demo.dataSource.poolPreparedStatements:true}"/>
     <property name="maxPoolPreparedStatementPerConnectionSize" value="${demo.dataSource.maxPoolPreparedStatementPerConnectionSize:300}"/>
   </bean>
 
+  <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
+  <!-- dao -->
 
-  <!--p:driverClassName="${demo.dataSource.driverClassName:org.apache.derby.jdbc.AutoloadedDriver}"-->
-  <!--p:url="${demo.dataSource.url:jdbc:derby:c:/temp/auditdb;create=true}"-->
-  <!--p:username="${demo.dataSource.username:root}"-->
-  <!--p:password="${demo.dataSource.password:root}"-->
-  <!--p:initialSize="${demo.dataSource.initialSize:0}"-->
-  <!--p:maxActive="${demo.dataSource.maxActive:50}"-->
-  <!--p:maxWait="${demo.dataSource.maxWait:-1}"-->
-  <!--p:validationQuery="${demo.dataSource.validationQuery:}"-->
-  <!--p:filters="stat"-->
-  <!--p:poolPreparedStatements="${demo.dataSource.poolPreparedStatements:true}"-->
-  <!--p:maxOpenPreparedStatements="${demo.dataSource.maxOpenPreparedStatements:20}"-->
+  <!-- 定义实体管理器工厂
+         Jpa配置   LocalContainerEntityManagerFactoryBean这个选项Spring扮演了容器的角色。完全掌管JPA -->
+  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <!-- 指定数据源 -->
+    <property name="dataSource" ref="demo.dataSource"/>
+    <!-- 指定Entity实体类包路径 -->
+    <property name="packagesToScan">
+      <array>
+        <value>com.enroy.demo.core</value>
+      </array>
+    </property>
+    <property name="persistenceProvider">
+      <bean class="org.hibernate.ejb.HibernatePersistence"/>
+    </property>
+    <!-- 指定Jpa持久化实现厂商类,这里以Hibernate为例 -->
+    <property name="jpaVendorAdapter">
+      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="generateDdl" value="false"/>
+        <property name="database" value="MYSQL"/>
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+        <property name="showSql" value="true"/>
+      </bean>
+    </property>
+    <property name="jpaPropertyMap">
+      <map>
+        <entry key="hibernate.query.substitutions" value="true 1, false 0"/>
+        <entry key="hibernate.default_batch_fetch_size" value="16"/>
+        <entry key="hibernate.max_fetch_depth" value="2"/>
+        <entry key="hibernate.generate_statistics" value="true"/>
+        <entry key="hibernate.bytecode.use_reflection_optimizer" value="true"/>
+        <entry key="hibernate.cache.use_second_level_cache" value="false"/>
+        <entry key="hibernate.cache.use_query_cache" value="false"/>
+      </map>
+    </property>
+  </bean>
 
-  <!-- 事务 -->
-  <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
-  <!--<tx:attributes>-->
-  <!--<tx:method name="*"/>-->
-  <!--<tx:method name="get*" read-only="true"/>-->
-  <!--<tx:method name="find*" read-only="true"/>-->
-  <!--<tx:method name="select*" read-only="true"/>-->
-  <!--<tx:method name="delete*" propagation="REQUIRED"/>-->
-  <!--<tx:method name="update*" propagation="REQUIRED"/>-->
-  <!--<tx:method name="add*" propagation="REQUIRED"/>-->
-  <!--<tx:method name="insert*" propagation="REQUIRED"/>-->
-  <!--</tx:attributes>-->
-  <!--</tx:advice>-->
+  <!--支持事务注解（@Transactional）-->
+  <!--proxy-target-class属性值决定是基于接口的还是基于类的代理被创建。
+      如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。
+      如果proxy-target-class属值被设置为false或者这个属性被省略，那么使用的JDK 基于接口的代理-->
+  <!--transaction-manager属性默认为"transactionManager"可以省略-->
+  <tx:annotation-driven proxy-target-class="true"/>
+  <!-- 事务管理器：JPA -->
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    <!--如果你还希望将事务应用于简单JDBC操作（JDBC操作使用的datasource和EntityManagerFactory使用的dataSource必须相同）
+        那么JpaTransactionManager必须装配一个JpaDialect的实现-->
+    <property name="jpaDialect">
+      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+    </property>
+  </bean>
 
-  <!--&lt;!&ndash; 事务入口 &ndash;&gt;-->
-  <!--<aop:config>-->
-  <!--<aop:pointcut id="allServiceMethod" expression="execution(* com.enroy.demo.dao..*(..))"/>-->
-  <!--<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>-->
-  <!--</aop:config>-->
+
 </beans>
