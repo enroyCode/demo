@@ -11,14 +11,26 @@ package com.enroy.demo.core;
 
 import com.enroy.demo.jpa.biz.PEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 /**
  * @author zhuchao
  */
+@Entity
+@Table(name = "demo_test", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "uuid")})
 public class PTest extends PEntity {
+  private static final int CODE_LENGTH = 32;
+  private static final int NAME_LENGTH = 64;
+
   private static final long serialVersionUID = 1980116360026741057L;
   private String name;
   private String code;
 
+  @Column(name = "name", nullable = false, length = NAME_LENGTH)
   public String getName() {
     return name;
   }
@@ -27,6 +39,7 @@ public class PTest extends PEntity {
     this.name = name;
   }
 
+  @Column(name = "code", nullable = false, length = CODE_LENGTH)
   public String getCode() {
     return code;
   }

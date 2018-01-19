@@ -9,8 +9,14 @@
  */
 package com.enroy.demo.dao;
 
+import com.enroy.demo.test.service.Test;
+
 /**
  * @author zhuchao
  */
 public class TestDaoImpl implements TestDao {
+  public Test save(Test entity) {
+
+    return null;
+  }
 }

@@ -11,6 +11,11 @@
   <artifactId>demo-api</artifactId>
   <dependencies>
     <dependency>
+      <groupId>com.enroy</groupId>
+      <artifactId>demo-commons</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>dubbo</artifactId>
     </dependency>
