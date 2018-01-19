@@ -15,7 +15,9 @@
       不过即使设置为false，如果目标类没有声明接口，则spring将自动使用CGLib动态代理。 -->
   <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+  <!-- dao -->
 
+  <!--数据库相关配置-->
   <!--数据源配置-->
   <!-- 使用应用内的DBCP数据库连接池 -->
   <bean id="demo.dataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -48,8 +50,6 @@
     <property name="maxPoolPreparedStatementPerConnectionSize" value="${demo.dataSource.maxPoolPreparedStatementPerConnectionSize:300}"/>
   </bean>
 
-  <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
-  <!-- dao -->
 
   <!-- 定义实体管理器工厂
          Jpa配置   LocalContainerEntityManagerFactoryBean这个选项Spring扮演了容器的角色。完全掌管JPA -->
