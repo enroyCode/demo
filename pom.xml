@@ -56,6 +56,7 @@
     <hibernate.version>3.2.7.ga</hibernate.version>
     <hibernate-annotations.version>3.2.1.ga</hibernate-annotations.version>
     <hibernate-entitymanager.version>3.2.1.ga</hibernate-entitymanager.version>
+    <jta.version>1.1</jta.version>
     <mysql-connector.version>5.1.10</mysql-connector.version>
     <!--maven plugin -->
     <maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
@@ -227,6 +228,12 @@
             <artifactId>javassist</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>javax.transaction</groupId>
+        <artifactId>jta</artifactId>
+        <version>${jta.version}</version>
+
       </dependency>
       <dependency>
         <groupId>com.alibaba</groupId>
