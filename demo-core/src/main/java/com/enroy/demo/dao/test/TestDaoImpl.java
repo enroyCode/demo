@@ -26,19 +26,16 @@ public class TestDaoImpl extends BaseDao implements TestDao {
     return null;
   }
 
-  public Test get(String name) {
-    if (StringUtils.isBlank(name)) {
+  public Test get(String id) {
+    if (StringUtils.isBlank(id)) {
       return null;
     }
-//    PTest pTest = em.find(PTest.class, "797bbaca-fcf5-11e7-80c2-484d7ec6e73a");
-    String hql = "from " + PTest.class.getName() + " o where o.uuid =:name";
+    String hql = "from " + PTest.class.getName() + " o where o.id =:id";
     Query query = em.createQuery(hql);
-//    String sql = "select * from demo_test where code=" + code;
-//    Query query = em.createQuery(sql);
-    query.setParameter("name", name);
+
+    query.setParameter("id", id);
     List<PTest> list = query.getResultList();
     return PerzTestConverter.getInstance().convert(list.isEmpty() ? null : list.get(0));
-//    return PerzTestConverter.getInstance().convert(em.find(PTest.class, "797bbaca-fcf5-11e7-80c2-484d7ec6e73a"));
   }
 
 }
