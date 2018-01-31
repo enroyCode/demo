@@ -84,8 +84,6 @@
         <prop key="hibernate.show_sql">${demo-core.hibernate.show_sql:true}</prop>
         <prop key="hibernate.hbm2ddl.auto">${demo-core.hibernate.hbm2ddl.auto:update}</prop>
         <prop key="hibernate.default_schema">${demo-core.hibernate.default_schema:demo}</prop>
-        <!--  <prop key="hibernate.ejb.interceptor">com.hd123.cloud.multitenant.ds.sharding.hibernate.ShardingInterceptor
-          </prop>-->
       </props>
     </property>
     <!--<property name="jpaPropertyMap">
