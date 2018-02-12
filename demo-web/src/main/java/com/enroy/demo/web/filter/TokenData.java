@@ -13,13 +13,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * jwt 标准中注册的声明
+ *
  * @author zhuchao
  */
 public class TokenData {
+  /** jwt的签发时间 */
   protected static final String KEY_ISSUED_AT = "iat";
+  /** jwt签发者 */
   protected static final String KEY_ISSUER = "iss";
+  /** jwt所面向的用户 */
   protected static final String KEY_SUBJECT = "sub";
+  /** 接收jwt的一方 */
   protected static final String KEY_AUDIENCE = "aud";
+  /** jwt的过期时间，这个过期时间必须要大于签发时间 */
   protected static final String KEY_EXPIRE = "exp";
 
   private Map<String, Object> map = new HashMap();
