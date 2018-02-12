@@ -7,5 +7,5 @@
 
   <!--服务bean-->
   <bean id="demo-core.testService" class="com.enroy.demo.core.test.TestServiceImpl"/>
-  <bean id="demo-core.loginService" class="com.enroy.demo.core.test.login.LoginServiceImpl"/>
+  <bean id="demo-core.loginService" class="com.enroy.demo.core.login.LoginServiceImpl"/>
 </beans>

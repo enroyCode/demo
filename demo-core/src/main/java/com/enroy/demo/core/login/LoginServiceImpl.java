@@ -7,7 +7,7 @@
  * 修改历史：
  * 2018/2/12 - zhuchao - 创建。
  */
-package com.enroy.demo.core.test.login;
+package com.enroy.demo.core.login;
 
 import com.enroy.demo.dao.login.LoginDao;
 import com.enroy.demo.service.login.LoginResult;
