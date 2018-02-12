@@ -11,7 +11,7 @@ package com.enroy.demo.dao.login;
 
 import com.enroy.demo.dao.BaseDao;
 import com.enroy.demo.service.login.LoginResult;
-import com.enroy.demo.service.user.User;
+import com.enroy.demo.service.user.LoginUser;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -21,23 +21,33 @@ import java.util.List;
  */
 public class LoginDao extends BaseDao {
   /** 登录验证 */
-  public LoginResult login(User user) {
+  public LoginResult login(LoginUser user) {
     if (user == null) {
       return LoginResult.fail("用户名或密码不能为空！");
     }
-    String hql = "from " + PUser.class.getName() + " o where o.username =:username";
+    String hql = "from " + PLoginUser.class.getName() + " o where o.userId = :username or o.email = :email or o.telephone = :telephone";
     Query query = em.createQuery(hql);
     query.setParameter("username", user.getUsername());
-    List<PUser> resultList = query.getResultList();
+    query.setParameter("email", user.getUsername());
+    query.setParameter("telephone", user.getUsername());
+    List<PLoginUser> resultList = query.getResultList();
     if (resultList.size() == 0) {
       return LoginResult.fail(user.getUsername(), "账户不存在！");
     } else {
-      PUser po = resultList.get(0);
+      PLoginUser po = resultList.get(0);
       if (po.getPassword().equals(user.getPassword())) {
-        return LoginResult.success(user);
+        return LoginResult.success(po.getUserId());
       } else {
-        return LoginResult.fail(user.getUsername(), "密码错误！");
+        return LoginResult.fail(po.getUserId(), "密码错误！");
       }
     }
+  }
+
+  public PUser get(String userId) {
+    String hql = "from " + PUser.class.getName() + " o where o.userId = :userId";
+    Query query = em.createQuery(hql);
+    query.setParameter("userId", userId);
+    List<PUser> list = query.getResultList();
+    return list.isEmpty() ? null : list.get(0);
   }
 }

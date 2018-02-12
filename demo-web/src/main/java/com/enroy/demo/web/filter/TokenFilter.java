@@ -32,6 +32,7 @@ public class TokenFilter implements Filter {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   /** 如果url中包含此参数，表明是注销请求 */
   public static final String LOGOUT_REQUEST = "_logout";
+
   public void init(FilterConfig filterConfig) throws ServletException {
 
   }
@@ -54,16 +55,13 @@ public class TokenFilter implements Filter {
 
     // 如果是注销请求
 
-
     // 从cookie中获得token
-    String token = tokenService.extractTokenFromCookie(httpRequest);
-    if (token == null) {
-      logger.debug("cookie中没有token");
-//      tokenRejected(httpRequest, httpResponse, loginConfig, callback);
-      return;
-    }
-
-
+//    String token = tokenService.extractTokenFromCookie(httpRequest);
+//    if (token == null) {
+//      logger.error("cookie中没有token");
+////      tokenRejected(httpRequest, httpResponse, loginConfig, callback);
+//      return;
+//    }
 
     chain.doFilter(request, response);
   }
@@ -105,11 +103,11 @@ public class TokenFilter implements Filter {
 
   }
 
-//  private void tokenAccepted(HttpServletRequest req, HttpServletResponse resp, TokenData tokenData,
+  //  private void tokenAccepted(HttpServletRequest req, HttpServletResponse resp, TokenData tokenData,
 //                             TokenCallback callback) {
 //
 //  }
-private boolean isAjaxRequest(HttpServletRequest req) {
-  return "XMLHttpRequest".equals(req.getHeader("x-requested-with"));
-}
+  private boolean isAjaxRequest(HttpServletRequest req) {
+    return "XMLHttpRequest".equals(req.getHeader("x-requested-with"));
+  }
 }

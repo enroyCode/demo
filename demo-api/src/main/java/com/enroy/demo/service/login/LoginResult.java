@@ -9,8 +9,6 @@
  */
 package com.enroy.demo.service.login;
 
-import com.enroy.demo.service.user.User;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,9 +21,9 @@ public class LoginResult {
   private boolean accepted = false;
   private String message;
 
-  public static LoginResult success(User user) {
+  public static LoginResult success(String userId) {
     LoginResult result = new LoginResult();
-    result.setUserId(user.getUsername());
+    result.setUserId(userId);
     result.setAccepted(true);
     return result;
   }

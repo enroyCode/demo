@@ -12,14 +12,15 @@ package com.enroy.demo.web.controller;
 import com.enroy.demo.commons.biz.ActionResult;
 import com.enroy.demo.service.login.LoginResult;
 import com.enroy.demo.service.login.LoginService;
+import com.enroy.demo.service.user.LoginUser;
 import com.enroy.demo.service.user.User;
 import com.enroy.demo.web.BaseController;
+import com.enroy.demo.web.filter.TokenData;
 import com.enroy.demo.web.filter.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,8 +45,7 @@ public class LoginController extends BaseController {
 
   @RequestMapping(path = "login.zc", method = RequestMethod.POST)
   @ResponseBody
-  public ActionResult login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response,
-                            ModelMap model) throws Exception {
+  public ActionResult login(@RequestBody LoginUser user, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     HttpSession session = request.getSession();
     String redirectUrl = request.getParameter("redirectUrl");
@@ -61,6 +61,17 @@ public class LoginController extends BaseController {
     if (!loginResult.isAccepted()) {
       return ActionResult.fail(loginResult.getMessage());
     }
+
+    User u = loginService.get(loginResult.getUserId());
+
+    // 发放token
+    TokenData tokenData = new TokenData();
+    tokenData.put("userId", u.getUserId());
+    String token = tokenServer.issueToken(tokenData);
+    logger.info("发放token: {}", token);
+    tokenServer.createCookie(request, response, token);
+
+    // TODO 跳转地址
 
     return ActionResult.ok();
   }

@@ -12,6 +12,7 @@ package com.enroy.demo.core.test.login;
 import com.enroy.demo.dao.login.LoginDao;
 import com.enroy.demo.service.login.LoginResult;
 import com.enroy.demo.service.login.LoginService;
+import com.enroy.demo.service.user.LoginUser;
 import com.enroy.demo.service.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -23,12 +24,17 @@ public class LoginServiceImpl implements LoginService {
   @Autowired
   private LoginDao loginDao;
 
-  public LoginResult login(User user) {
+  public LoginResult login(LoginUser user) {
     Assert.notNull(user, "用户名或密码不能为空！");
     Assert.notNull(user.getUsername(), "用户名不能为空！");
     Assert.notNull(user.getPassword(), "密码不能为空！");
     //TODO 验证码验证
 
     return loginDao.login(user);
+  }
+
+  public User get(String userId) {
+    Assert.notNull(userId, "用户名不能为空！");
+    return UserConverter.get().convert(loginDao.get(userId));
   }
 }

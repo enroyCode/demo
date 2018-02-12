@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
@@ -19,6 +20,13 @@
   <!--加载dubbo配置-->
   <import resource="classpath:/META-INF/demo-consumer.xml"/>
 
-  <bean id="demo-web.tokeService" class="com.enroy.demo.web.filter.TokenService"/>
+  <!--tokenService-->
+  <bean id="demo-web.tokenService" class="com.enroy.demo.web.filter.TokenService">
+    <property name="config">
+      <bean class="com.enroy.demo.web.filter.TokenConfig"
+            p:cookieName="${demo-web.cookieName:_uid_}" p:expiresIn="${demo-web.expiresIn:86400}"
+            p:refreshIn="${demo-web.refreshIn:600}" p:secret="${demo-web.secret:123}"/>
+    </property>
+  </bean>
 
 </beans>
