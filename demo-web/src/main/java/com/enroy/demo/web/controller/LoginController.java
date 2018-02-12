@@ -10,6 +10,8 @@
 package com.enroy.demo.web.controller;
 
 import com.enroy.demo.commons.biz.ActionResult;
+import com.enroy.demo.service.login.LoginResult;
+import com.enroy.demo.service.login.LoginService;
 import com.enroy.demo.service.user.User;
 import com.enroy.demo.web.BaseController;
 import com.enroy.demo.web.filter.TokenService;
@@ -35,6 +37,8 @@ public class LoginController extends BaseController {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   @Autowired
   TokenService tokenServer;
+  @Autowired
+  LoginService loginService;
 
   @RequestMapping(path = "login.hd", method = RequestMethod.POST)
   public ActionResult login(User user, HttpServletRequest request, HttpServletResponse response,
@@ -44,14 +48,16 @@ public class LoginController extends BaseController {
     String redirectUrl = request.getParameter("redirectUrl");
     // 验证码检查
     String captcha = (String) session.getAttribute("captcha");
-    if (captcha == null || user.getCaptcha() == null
-            || captcha.toLowerCase().equals(user.getCaptcha().toLowerCase()) == false) {
-//      redirectToLogin(request, response, user.getUsername(), "验证码不正确");
-      return ActionResult.fail("验证码不正确");
-    }
+//    if (captcha == null || user.getCaptcha() == null
+//            || captcha.toLowerCase().equals(user.getCaptcha().toLowerCase()) == false) {
+////      redirectToLogin(request, response, user.getUsername(), "验证码不正确");
+//      return ActionResult.fail("验证码不正确");
+//    }
     // 密码检查
-
-
+    LoginResult loginResult = loginService.login(user);
+    if (!loginResult.isAccepted()) {
+      return ActionResult.fail(loginResult.getMessage());
+    }
 
     return null;
   }

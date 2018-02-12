@@ -17,4 +17,6 @@
   <!--service-->
   <dubbo:reference id="demo.testService" interface="com.enroy.demo.service.TestService"
                    url="${demo.testService.url:}"/>
+  <dubbo:reference id="demo.loginService" interface="com.enroy.demo.service.login.LoginService"
+                   url="${demo.loginService.url:}"/>
 </beans>
