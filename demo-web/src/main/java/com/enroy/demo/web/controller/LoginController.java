@@ -23,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,7 @@ public class LoginController extends BaseController {
   LoginService loginService;
 
   @RequestMapping(path = "login.zc", method = RequestMethod.POST)
+  @ResponseBody
   public ActionResult login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response,
                             ModelMap model) throws Exception {
 
