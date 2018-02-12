@@ -28,5 +28,10 @@
             p:refreshIn="${demo-web.refreshIn:600}" p:secret="${demo-web.secret:123}"/>
     </property>
   </bean>
+  <!--loginConfig-->
+  <bean id="demo-web.loginConfig" class="com.enroy.demo.web.login.LoginConfig"
+        p:loginUrl="${demo-web.url:http://localhost:8780/login}"/>
+  <!--tokenCallback-->
+  <bean id="demo-web.tokenCallback" class="com.enroy.demo.web.jwt.AppCallback"/>
 
 </beans>
