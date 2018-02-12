@@ -9,6 +9,7 @@
  */
 package com.enroy.demo.core.test;
 
+import com.enroy.demo.dao.test.PerzTestConverter;
 import com.enroy.demo.dao.test.TestDao;
 import com.enroy.demo.service.TestService;
 import com.enroy.demo.test.service.Test;
@@ -22,13 +23,10 @@ public class TestServiceImpl implements TestService {
   @Autowired
   private TestDao testDao;
 
-  public String sayHey() {
-    return "hey";
-  }
+
 
   public Test get(String id) {
-    Test test = testDao.get(id);
-    return test;
+    return PerzTestConverter.getInstance().convert(testDao.get(id));
   }
 
 }

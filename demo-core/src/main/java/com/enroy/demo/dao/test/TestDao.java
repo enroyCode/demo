@@ -9,6 +9,7 @@
  */
 package com.enroy.demo.dao.test;
 
+import com.enroy.demo.core.test.PTest;
 import com.enroy.demo.test.service.Test;
 
 /**
@@ -17,7 +18,7 @@ import com.enroy.demo.test.service.Test;
 public interface TestDao {
   String DEFAULT_CONTEXT_ID = "demo-core.testDao";
 
-  Test save(Test entity);
+  PTest save(Test entity);
 
-  Test get(String id);
+  PTest get(String id);
 }

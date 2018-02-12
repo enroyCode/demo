@@ -18,10 +18,6 @@ import javax.ws.rs.core.MediaType;
 public interface TestService {
 
   @GET
-  @Path("/sayHey")
-  String sayHey();
-
-  @GET
   @Path("/get")
   Test get(@QueryParam("id") String id);
 }

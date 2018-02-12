@@ -26,12 +26,12 @@ import java.util.List;
 @Repository(value = TestDao.DEFAULT_CONTEXT_ID)
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class TestDaoImpl extends BaseDao implements TestDao {
-  public Test save(Test entity) {
+  public PTest save(Test entity) {
 
     return null;
   }
 
-  public Test get(String id) {
+  public PTest get(String id) {
     if (StringUtils.isBlank(id)) {
       return null;
     }
@@ -40,7 +40,7 @@ public class TestDaoImpl extends BaseDao implements TestDao {
 
     query.setParameter("id", id);
     List<PTest> list = query.getResultList();
-    return PerzTestConverter.getInstance().convert(list.isEmpty() ? null : list.get(0));
+    return list.isEmpty() ? null : list.get(0);
   }
 
 }
