@@ -79,6 +79,9 @@ public class TokenFilter implements Filter {
     TokenCallback callback = appCtx.getBean(TokenCallback.class);
     LoginConfig loginConfig = appCtx.getBean(LoginConfig.class);
 
+    // 先清除上下文的token数据
+    TokenContext.remove();
+
     // 如果是注销请求
 
     // 从cookie中获得token
