@@ -12,6 +12,9 @@ package com.enroy.demo.dao.login;
 import com.enroy.demo.dao.BaseDao;
 import com.enroy.demo.service.login.LoginResult;
 import com.enroy.demo.service.user.LoginUser;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -19,7 +22,9 @@ import java.util.List;
 /**
  * @author zhuchao
  */
-public class LoginDaoImpl extends BaseDao implements LoginDao{
+@Repository(value = LoginDao.DEFAULT_CONTEXT_ID)
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+public class LoginDaoImpl extends BaseDao implements LoginDao {
   /** 登录验证 */
   public LoginResult login(LoginUser user) {
     if (user == null) {

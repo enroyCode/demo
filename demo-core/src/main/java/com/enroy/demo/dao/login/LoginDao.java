@@ -16,6 +16,8 @@ import com.enroy.demo.service.user.LoginUser;
  * @author zhuchao
  */
 public interface LoginDao {
+  String DEFAULT_CONTEXT_ID = "demo-core.loginDao";
+
   LoginResult login(LoginUser user);
 
   PUser get(String userId);

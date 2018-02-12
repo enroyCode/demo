@@ -13,6 +13,9 @@ import com.enroy.demo.core.test.PTest;
 import com.enroy.demo.dao.BaseDao;
 import com.enroy.demo.test.service.Test;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -20,6 +23,8 @@ import java.util.List;
 /**
  * @author zhuchao
  */
+@Repository(value = TestDao.DEFAULT_CONTEXT_ID)
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class TestDaoImpl extends BaseDao implements TestDao {
   public Test save(Test entity) {
 
@@ -30,7 +35,7 @@ public class TestDaoImpl extends BaseDao implements TestDao {
     if (StringUtils.isBlank(id)) {
       return null;
     }
-    String hql = "from " + PTest.class.getName() + " o where o.id =:id";
+    String hql = "from " + PTest.class.getName() + " o where o.code =:id";
     Query query = em.createQuery(hql);
 
     query.setParameter("id", id);

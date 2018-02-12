@@ -9,31 +9,29 @@
  */
 package com.enroy.demo.web.controller;
 
-import com.enroy.demo.commons.biz.ActionResult;
 import com.enroy.demo.service.TestService;
+import com.enroy.demo.test.service.Test;
 import com.enroy.demo.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author zhuchao
  */
 @Controller
-@RequestMapping("test/*")
+@RequestMapping("/test/*")
 public class TestController extends BaseController {
   @Autowired
   private TestService testService;
 
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
-  public ActionResult test() {
-    String result = testService.sayHey();
-    ActionResult actionResult = new ActionResult();
-    actionResult.setCode("200");
-    actionResult.setMessage(result);
-    actionResult.setSuccess(true);
-    return actionResult;
+  @RequestMapping(value = "/load", method = RequestMethod.GET)
+  @ResponseBody
+  public Test load(@RequestParam("id") String id) {
+    return testService.get(id);
   }
 
 }
