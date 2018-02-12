@@ -30,6 +30,10 @@
                   timeout="${dubbo.provider.timeout:10000}"/>
 
   <!-- 提供者公共配置 -->
+  <!--测试服务-->
   <dubbo:service interface="com.enroy.demo.service.TestService"
                  ref="demo-core.testService" register="${dubbo.registry.register:true}"/>
+  <!--登录服务-->
+  <dubbo:service interface="com.enroy.demo.service.login.LoginService"
+                 ref="demo-core.loginService" register="${dubbo.registry.register:true}"/>
 </beans>

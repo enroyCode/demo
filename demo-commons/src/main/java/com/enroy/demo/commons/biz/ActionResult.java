@@ -48,5 +48,12 @@ public class ActionResult {
     this.message = message;
   }
 
+  public static ActionResult fail(String message) {
+    ActionResult r = new ActionResult();
+    r.setSuccess(false);
+    r.setMessage(message);
+    return r;
+  }
+
   public static final ActionResult OK = new ActionResult();
 }

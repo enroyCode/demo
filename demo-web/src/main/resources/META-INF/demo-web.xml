@@ -19,5 +19,6 @@
   <!--加载dubbo配置-->
   <import resource="classpath:/META-INF/demo-consumer.xml"/>
 
+  <bean id="demo-web.tokeService" class="com.enroy.demo.web.filter.TokenService"/>
 
 </beans>

@@ -17,6 +17,9 @@
 
   <!-- dao -->
   <bean class="com.enroy.demo.dao.test.TestDaoImpl"/>
+  <bean class="com.enroy.demo.dao.login.LoginDao"/>
+
+
   <!--数据库相关配置-->
   <!--数据源配置-->
   <!-- 使用应用内的DBCP数据库连接池 -->

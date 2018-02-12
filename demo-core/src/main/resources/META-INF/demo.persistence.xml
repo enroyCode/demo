@@ -5,6 +5,7 @@
   <persistence-unit name="demo">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>com.enroy.demo.core.test.PTest</class>
+    <class>com.enroy.demo.dao.login.PUser</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

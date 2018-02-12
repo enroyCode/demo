@@ -5,6 +5,7 @@
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
   <context:component-scan base-package="com.enroy.demo.core"/>
 
-
+  <!--服务bean-->
   <bean id="demo-core.testService" class="com.enroy.demo.core.test.TestServiceImpl"/>
+  <bean id="demo-core.loginService" class="com.enroy.demo.core.test.login.LoginServiceImpl"/>
 </beans>
