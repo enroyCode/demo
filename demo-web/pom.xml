@@ -22,10 +22,19 @@
       <artifactId>demo-commons</artifactId>
       <version>${project.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.enroy</groupId>
+      <artifactId>demo-commons</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <!-- service -->
 
-    <!-- webframe -->
+    <!--jwt-->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>${java-jwt}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -146,11 +155,8 @@
       <artifactId>spring-web</artifactId>
       <version>4.2.5.RELEASE</version>
     </dependency>
-    <dependency>
-      <groupId>com.enroy</groupId>
-      <artifactId>demo-commons</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+
+
   </dependencies>
 
 </project>
