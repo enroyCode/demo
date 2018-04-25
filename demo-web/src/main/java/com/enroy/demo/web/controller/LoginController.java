@@ -17,6 +17,7 @@ import com.enroy.demo.service.user.User;
 import com.enroy.demo.web.BaseController;
 import com.enroy.demo.web.filter.TokenData;
 import com.enroy.demo.web.filter.TokenService;
+import com.enroy.demo.web.support.ResponseActionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,13 +44,14 @@ public class LoginController extends BaseController {
   LoginService loginService;
 
   @RequestMapping(path = "login.zc", method = RequestMethod.POST)
-  @ResponseBody
+  @ResponseActionResult
   public ActionResult login(@RequestBody LoginUser user, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     HttpSession session = request.getSession();
     String redirectUrl = request.getParameter("redirectUrl");
     // 验证码检查
     String captcha = (String) session.getAttribute("captcha");
+    //验证码暂不校验
 //    if (captcha == null || user.getCaptcha() == null
 //            || captcha.toLowerCase().equals(user.getCaptcha().toLowerCase()) == false) {
 ////      redirectToLogin(request, response, user.getUsername(), "验证码不正确");

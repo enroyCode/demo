@@ -86,6 +86,7 @@ public class TokenFilter implements Filter {
 
     // 从cookie中获得token
     String token = tokenService.extractTokenFromCookie(httpRequest);
+    //token暂不校验
     if (token == null) {
       logger.error("cookie中没有token");
       tokenRejected(httpRequest, httpResponse, loginConfig, callback);
@@ -119,6 +120,10 @@ public class TokenFilter implements Filter {
     // AJAX请求直接返回错误信息
     if (isAjaxRequest(req)) {
       resp.setStatus(1001);
+      resp.setCharacterEncoding("UTF-8");
+      resp.setContentType("application/json");
+      resp.getWriter().write("{'message':'登录超时'}");
+      resp.setHeader("Access-Control-Allow-Credentials", "true");
     } else { // 重定向到登录页
       redirectToLogin(req, resp, loginConfig);
     }
