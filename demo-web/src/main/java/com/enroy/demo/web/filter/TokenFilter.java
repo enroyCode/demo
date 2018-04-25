@@ -91,7 +91,7 @@ public class TokenFilter implements Filter {
       tokenRejected(httpRequest, httpResponse, loginConfig, callback);
       return;
     }
-
+    System.out.println(token);
     chain.doFilter(request, response);
   }
 
@@ -118,7 +118,7 @@ public class TokenFilter implements Filter {
       callback.onRejected(req, resp);
     // AJAX请求直接返回错误信息
     if (isAjaxRequest(req)) {
-      resp.sendError(401, "账号过期，请重新登录");
+      resp.setStatus(1001);
     } else { // 重定向到登录页
       redirectToLogin(req, resp, loginConfig);
     }

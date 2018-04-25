@@ -75,7 +75,7 @@
   <!-- 跨域调用白名单配置 -->
   <mvc:cors>
     <mvc:mapping path="/**"
-                 allowed-origins="http://localhost:63342,http://localhost:9000,https://localhost:8443,https://172.17.5.218:8443,https:127.0.0.1:8443"
+                 allowed-origins="http://localhost:63342,http://localhost:9000,http://localhost:9999,https://localhost:8443,https://172.17.5.218:8443,https:127.0.0.1:8443"
                  allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, trace_id"
                  allowed-methods="GET,PUT,POST,DELETE,OPTIONS" allow-credentials="true"
                  max-age="3600"/>
