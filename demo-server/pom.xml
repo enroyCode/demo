@@ -24,6 +24,11 @@
       <version>${project.version}</version>
     </dependency>
     <!-- ddps -->
+    <dependency>
+      <groupId>com.hd123.cloud.ddps</groupId>
+      <artifactId>ddps-queue</artifactId>
+    </dependency>
+
 
     <dependency>
       <groupId>commons-io</groupId>

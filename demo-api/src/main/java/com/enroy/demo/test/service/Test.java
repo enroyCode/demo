@@ -11,6 +11,8 @@ package com.enroy.demo.test.service;
 
 import com.enroy.demo.commons.biz.Entity;
 
+import java.util.Date;
+
 /**
  * @author zhuchao
  */
@@ -18,6 +20,7 @@ public class Test extends Entity {
   private static final long serialVersionUID = 1024006008933427911L;
   private String code;
   private String name;
+  private Date execTime;
 
   public String getCode() {
     return code;
@@ -33,5 +36,13 @@ public class Test extends Entity {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Date getExecTime() {
+    return execTime;
+  }
+
+  public void setExecTime(Date execTime) {
+    this.execTime = execTime;
   }
 }

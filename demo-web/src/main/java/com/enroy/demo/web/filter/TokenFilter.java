@@ -89,11 +89,55 @@ public class TokenFilter implements Filter {
     //token暂不校验
     if (token == null) {
       logger.error("cookie中没有token");
-      tokenRejected(httpRequest, httpResponse, loginConfig, callback);
+      if (tokenRejected(httpRequest, httpResponse, loginConfig, callback)) {
+        chain.doFilter(request, response);
+      }
       return;
     }
+    // 验证token
+    logger.debug("token: {}", token);
+    TokenData tokenData = tokenService.verifyToken(token);
+    if (tokenData == null) {
+      logger.debug("token验证不通过: {}", token);
+      if (tokenRejected(httpRequest, httpResponse, loginConfig, callback)) {
+        chain.doFilter(request, response);
+      }
+      return;
+    }
+    // 检查token身份
+    logger.debug("用户信息: {}", tokenData);
+    String newToken = tokenService.refreshToken(httpRequest, httpResponse, token, tokenData,
+                                                callback);
+    if (newToken == null) {
+      logger.debug("token身份无效: {}", tokenData);
+      if (tokenRejected(httpRequest, httpResponse, loginConfig, callback)) {
+        chain.doFilter(request, response);
+      }
+      return;
+    }
+
+    // 更新token
+    if (newToken.equals(token) == false) {
+      logger.info("刷新token: {}", newToken);
+      tokenService.createCookie(httpRequest, httpResponse, newToken);
+    }
+
+    // token验证通过
+    tokenAccepted(httpRequest, httpResponse, tokenData, callback);
+
     System.out.println(token);
     chain.doFilter(request, response);
+  }
+
+  private void tokenAccepted(HttpServletRequest req, HttpServletResponse resp, TokenData tokenData,
+                             TokenCallback callback) {
+    // 放入token上下文
+    TokenContext.set(tokenData);
+
+    if (callback != null) {
+      logger.debug("回调：{}", tokenData);
+      callback.onAccepted(req, resp, tokenData);
+    }
   }
 
   private boolean isRequestUrlExcluded(final HttpServletRequest request) {
@@ -113,20 +157,18 @@ public class TokenFilter implements Filter {
     return false;
   }
 
-  private void tokenRejected(HttpServletRequest req, HttpServletResponse resp,
-                             LoginConfig loginConfig, TokenCallback callback) throws IOException {
+  private boolean tokenRejected(HttpServletRequest req, HttpServletResponse resp,
+                                LoginConfig loginConfig, TokenCallback callback) throws IOException {
     if (callback != null)
       callback.onRejected(req, resp);
     // AJAX请求直接返回错误信息
     if (isAjaxRequest(req)) {
       resp.setStatus(1001);
-      resp.setCharacterEncoding("UTF-8");
-      resp.setContentType("application/json");
-      resp.getWriter().write("{'message':'登录超时'}");
-      resp.setHeader("Access-Control-Allow-Credentials", "true");
+      return true;
     } else { // 重定向到登录页
       redirectToLogin(req, resp, loginConfig);
     }
+    return false;
   }
 
   private void redirectToLogin(HttpServletRequest req, HttpServletResponse resp,
@@ -154,10 +196,6 @@ public class TokenFilter implements Filter {
 
   }
 
-  //  private void tokenAccepted(HttpServletRequest req, HttpServletResponse resp, TokenData tokenData,
-//                             TokenCallback callback) {
-//
-//  }
   private boolean isAjaxRequest(HttpServletRequest req) {
     return "XMLHttpRequest".equals(req.getHeader("x-requested-with"));
   }

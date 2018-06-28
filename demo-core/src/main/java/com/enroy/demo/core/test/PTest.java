@@ -14,7 +14,10 @@ import com.enroy.demo.jpa.biz.PEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import java.util.Date;
 
 /**
  * @author zhuchao
@@ -29,6 +32,7 @@ public class PTest extends PEntity {
   private static final long serialVersionUID = 1980116360026741057L;
   private String name;
   private String code;
+  private Date execTime;
 
   @Column(name = "name", nullable = false, length = NAME_LENGTH)
   public String getName() {
@@ -46,5 +50,15 @@ public class PTest extends PEntity {
 
   public void setCode(String code) {
     this.code = code;
+  }
+
+  @Column(name = "exec_time")
+  @Temporal(TemporalType.TIMESTAMP)
+  public Date getExecTime() {
+    return execTime;
+  }
+
+  public void setExecTime(Date execTime) {
+    this.execTime = execTime;
   }
 }

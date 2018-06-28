@@ -34,6 +34,7 @@ public class PerzTestConverter implements Converter<PTest, Test> {
     target.setCode(source.getCode());
     target.setName(source.getName());
     target.setUuid(source.getUuid());
+    target.setExecTime(source.getExecTime());
     return target;
   }
 }

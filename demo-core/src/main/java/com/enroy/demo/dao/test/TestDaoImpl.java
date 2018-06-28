@@ -11,6 +11,7 @@ package com.enroy.demo.dao.test;
 
 import com.enroy.demo.core.test.PTest;
 import com.enroy.demo.dao.BaseDao;
+import com.enroy.demo.dao.DemoTX;
 import com.enroy.demo.test.service.Test;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -26,9 +27,23 @@ import java.util.List;
 @Repository(value = TestDao.DEFAULT_CONTEXT_ID)
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class TestDaoImpl extends BaseDao implements TestDao {
+  @DemoTX
   public PTest save(Test entity) {
-
-    return null;
+    PTest perz = get(entity.getCode());
+    if (perz == null) {
+      perz = new PTest();
+      perz.setCode(entity.getCode());
+      perz.setName(entity.getName());
+      perz.setExecTime(entity.getExecTime());
+      em.persist(perz);
+    } else {
+      perz.setCode(entity.getCode());
+      perz.setName(entity.getName());
+      perz.setExecTime(entity.getExecTime());
+      em.merge(perz);
+    }
+    em.flush();
+    return perz;
   }
 
   public PTest get(String id) {
